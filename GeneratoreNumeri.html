@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Estrazione Numeri</title>
+	<meta charset="UTF-8">
+</head>
+<body>
+	<h1>20 numeri casuali</h1>
+	<p id="numeri"></p>
+
+	<script>
+		// Funzione per generare un numero casuale tra min e max (compresi)
+		function getRandomNumber(min, max) {
+			return Math.floor(Math.random() * (max - min + 1)) + min;
+		}
+
+		// Inizializzo un array vuoto per i numeri estratti
+		var numeriEstratti = [];
+
+		// Estraggo 20 numeri diversi e li aggiungo all'array numeriEstratti
+		while (numeriEstratti.length < 20) {
+			var numeroCasuale = getRandomNumber(1, 50);
+			if (!numeriEstratti.includes(numeroCasuale)) {
+				numeriEstratti.push(numeroCasuale);
+			}
+		}
+
+		// Stampiamo i 20 numeri estratti nella pagina HTML
+		var numeriP = document.getElementById("numeri");
+		numeriP.innerHTML = numeriEstratti.join(", ");
+	</script>
+</body>
+</html>
