@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Tombola</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #ffffff;
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+
+      table {
+        margin: 0 auto;
+        border-collapse: collapse;
+        border: 2px solid #555;
+      }
+
+      td {
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        vertical-align: middle;
+        font-size: 20px;
+        color: #333;
+        border: 5px solid #555;
+      }
+
+      td:nth-child(5) {
+        border-right: none;
+      }
+
+      #estrai {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        border: 2px solid #555;
+        border-radius: 5px;
+        background-color: #7FFF00;
+        font-size: 18px;
+        color: #333;
+        text-align: center;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      #estrai:hover {
+        background-color: #555;
+        color: #fff;
+      }
+  </style>
+  </head>
+  <body onload="generaTabellone()">
+    <h1>Tombola</h1>
+    <table>
+      <tbody id="tabellone">
+      </tbody>
+    </table>
+    <button id="estrai" onclick="estraiNumero()">Estrai numero</button>
+    <div id="numeriEstrattiDiv">
+      Numeri estratti:
+      <span id="numeriEstratti"></span>
+    </div>
+    <script>
+      var numeriTabellone = [];
+      var numeriEstratti = [];
+
+      for (var i = 1; i <= 90; i++) {
+        numeriTabellone.push(i);
+      }
+
+      function generaTabellone() {
+        var tabellone = document.getElementById("tabellone");
+        var indiceNumero = 0;
+        for (var riga = 1; riga <= 9; riga++) {
+          var tr = document.createElement("tr");
+          for (var colonna = 1; colonna <= 10; colonna++) {
+            var td = document.createElement("td");
+            td.id = "numero-" + numeriTabellone[indiceNumero];
+            td.textContent = numeriTabellone[indiceNumero];
+            tr.appendChild(td);
+            indiceNumero++;
+          }
+          tabellone.appendChild(tr);
+        }
+      }
+
+      function estraiNumero() {
+        if (numeriTabellone.length === 0) {
+          alert("Tutti i numeri sono già stati estratti!");
+          return;
+        }
+        var indiceNumeroEstratto = Math.floor(Math.random() * numeriTabellone.length);
+        var numeroEstratto = numeriTabellone.splice(indiceNumeroEstratto, 1)[0];
+        numeriEstratti.push(numeroEstratto);
+        var numeroEstrattoCella = document.getElementById("numero-" + numeroEstratto);
+        numeroEstrattoCella.style.backgroundColor = "Chartreuse";
+        
+        var numeriEstrattiSpan = document.getElementById("numeriEstratti");
+        numeriEstrattiSpan.textContent += numeroEstratto + " ";
+      }
+    </script>
+  </body>
+</html>
